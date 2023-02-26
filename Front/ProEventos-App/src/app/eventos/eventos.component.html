@@ -1,57 +1,71 @@
 <h2>Eventos</h2>
-  <hr>
-  <form>
-    <div class="row mb-3">
-      <div class="col-md-3 col-sm-6">
-        <input type="text" class="form-control" id="buscar" placeholder="buscar">
-      </div>
-      <div class="col-md-1 col-sm-3">
-        <button class="btn btn-primary">Buscar</button>
-      </div>
+<hr />
+<div>
+  <div class="mb-3">
+    <div>
+      <label class="me-3">Filtro:</label>
+      <input
+        [(ngModel)]="filtroLista"
+        type="text"
+        class=""
+        id="buscar"
+        placeholder="buscar"
+      />
     </div>
-  </form>
+  </div>
+</div>
 
-  <table class="table table-striped">
-    <thead class="table-dark">
-      <tr>
-        <th>
-          <button  type="button" class="btn btn-secondary" (click)="alterarExibicaoImagem()">
-            {{!exibirImagem ? 'Exibir' : 'Ocultar'}}
-          </button>
-        </th>
-        <th>#</th>
-        <th>Tema</th>
-        <th>Local</th>
-        <th>Data</th>
-        <th>Qtd Pessoas</th>
-        <th>Lote</th>
-        <th>Opções</th>
-      </tr>
-    </thead>
-    <tbody *ngIf="eventos.length">
-      <tr *ngFor="let evento of eventos">
-        <td>
-          <img
-
-            [collapse]="!exibirImagem"
-            [isAnimated]="true"
-            src="/assets/{{evento.imagemURL}}"
-            [style.width.px]="larguraImagem"
-            [style.margin.px]="margemImagem">
-
-        </td>
-        <td>{{evento.eventoId}}</td>
-        <td>{{evento.tema}}</td>
-        <td>{{evento.local}}</td>
-        <td>{{evento.dataEvento}}</td>
-        <td>{{evento.qtdpessoas}}</td>
-        <td>{{evento.lote}}</td>
-        <td>Opções</td>
-      </tr>
-    </tbody>
-    <tfoot *ngIf="!eventos.length">
-      <tr>
-        <td colspan="8" class="text-center">Nenhum evento encontrado!</td>
-      </tr>
-    </tfoot>
-  </table>
+<table class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="alterarExibicaoImagem()"
+        >
+          {{ !exibirImagem ? "Exibir" : "Ocultar" }}
+        </button>
+      </th>
+      <th>#</th>
+      <th>Tema</th>
+      <th>Local</th>
+      <th>Data</th>
+      <th>Qtd Pessoas</th>
+      <th>Lote</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="eventos.length">
+    <tr *ngFor="let evento of eventosFiltrados">
+      <td>
+        <img
+          [collapse]="!exibirImagem"
+          [isAnimated]="true"
+          src="/assets/{{ evento.imagemURL }}"
+          [style.width.px]="larguraImagem"
+          [style.margin.px]="margemImagem"
+        />
+      </td>
+      <td>{{ evento.eventoId }}</td>
+      <td>{{ evento.tema }}</td>
+      <td>{{ evento.local }}</td>
+      <td>{{ evento.dataEvento }}</td>
+      <td>{{ evento.qtdPessoas }}</td>
+      <td>{{ evento.lote }}</td>
+      <td>
+        <button type="button" class="btn btn-warning btn-sm me-2">
+          Editar
+        </button>
+        <button type="button" class="btn btn-danger btn-sm">
+          Excluir
+        </button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!eventos.length">
+    <tr>
+      <td colspan="8" class="text-center">Nenhum evento encontrado!</td>
+    </tr>
+  </tfoot>
+</table>
