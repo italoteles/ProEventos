@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using ProEventos.API.Data;
+using ProEventos.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 
-builder.Services.AddDbContext<DataContext>(
+builder.Services.AddDbContext<ProEventosContext>(
     context => context.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
