@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ProEventos.Application;
@@ -7,6 +8,10 @@ using ProEventos.Persistence.Contextos;
 using ProEventos.Persistence.Contratos;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//using IgnoreCycles to avoid cycles in JSON properties
+builder.Services.AddControllers().AddJsonOptions(options =>
+  options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 // Add services to the container.
 
