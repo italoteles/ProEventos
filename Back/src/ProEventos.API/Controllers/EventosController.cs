@@ -18,7 +18,7 @@ public class EventosController : ControllerBase
     }
 
     [HttpGet]
-    public  async IEnumerable<IActionResult> GetAll()
+    public  async Task<IActionResult> GetAll()
     {
         try
         {
