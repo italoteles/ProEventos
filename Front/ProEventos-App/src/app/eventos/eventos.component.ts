@@ -1,5 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Component, OnInit } from '@angular/core';
+import { Evento } from '../models/Evento';
+import { EventoService } from '../services/evento.service';
 
 @Component({
   selector: 'app-eventos',
@@ -8,47 +10,48 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventosComponent implements OnInit {
 
-  public eventos : any = [];
-  public eventosFiltrados : any = [];
-  margemImagem : number = 0;
-  larguraImagem : number = 75;
-  exibirImagem : boolean = true;
-  private _filtroLista : string = '';
+  public eventos : Evento[] = [];
+  public eventosFiltrados : Evento[] = [];
+  public margemImagem : number = 0;
+  public larguraImagem : number = 75;
+  public exibirImagem : boolean = true;
+  private filtroListado : string = '';
+
+  constructor(private eventoService : EventoService){}
+
 
   public get filtroLista(){
-    return this._filtroLista;
+    return this.filtroListado;
   }
 
   public set filtroLista(valor : string ){
-    this._filtroLista = valor;
+    this.filtroListado = valor;
     this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
 
   }
 
-  constructor(private http : HttpClient){}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.getEventos();
   }
 
   public getEventos() : void{
-    this.http.get('https://localhost:7157/api/eventos').subscribe(
-      response => {
-        this.eventos = response;
-        this.eventosFiltrados = this.eventos;
+    this.eventoService.getEventos().subscribe(
+      {
+        next: (eventos : Evento[]) => {
+          this.eventos = eventos;
+          this.eventosFiltrados = this.eventos;
+        },
+        error: (error : any) => console.log(error)
 
-      },
-      error => console.log(error)
-    );
-
-
+      });
   }
 
-  public alterarExibicaoImagem(){
+  public alterarExibicaoImagem() : void{
     this.exibirImagem = !this.exibirImagem;
   }
 
-  public filtrarEventos(filtrarPor : string) : any{
+  public filtrarEventos(filtrarPor : string) : Evento[]{
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.eventos.filter(
       (evento : any) => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
