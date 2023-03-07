@@ -19,7 +19,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
-import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [
@@ -50,6 +50,8 @@ export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIcons(faTrash);
     library.addIcons(faPenToSquare);
+    library.addIcons(faEye);
+    library.addIcons(faEyeSlash);
   }
 
 }

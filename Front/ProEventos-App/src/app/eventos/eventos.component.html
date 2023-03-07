@@ -25,7 +25,7 @@
           (click)="alterarExibicaoImagem()"
         >
 
-        <fa-icon [icon]="!exibirImagem ? faEye : faEyeSlash"></fa-icon>
+        <fa-icon icon="{{!exibirImagem ? 'eye' : 'eye-slash'}}"></fa-icon>
 
           {{ !exibirImagem ? "Exibir" : "Ocultar" }}
         </button>
@@ -57,12 +57,12 @@
       <td>{{ evento.qtdPessoas }}</td>
       <td>{{ evento.lotes[0].nome }} </td>
       <td>
-        <button type="button" class="btn btn-warning btn-sm me-2">
+        <button type="button" class="btn btn-warning btn-sm me-2" tooltip="Editar">
 
           <fa-icon icon="pen-to-square"></fa-icon>
 
         </button>
-        <button type="button" class="btn btn-danger btn-sm">
+        <button type="button" class="btn btn-danger btn-sm" tooltip="Excluir">
           <fa-icon icon="trash"></fa-icon>
 
         </button>
@@ -75,3 +75,9 @@
     </tr>
   </tfoot>
 </table>
+<button type="button" class="btn btn-primary"
+          tooltip="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+    Simple demo
+  </button>
+
+
