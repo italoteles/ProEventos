@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Evento } from '../models/Evento';
 import { EventoService } from '../services/evento.service';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-eventos',
@@ -9,6 +10,9 @@ import { EventoService } from '../services/evento.service';
   styleUrls: ['./eventos.component.scss']
 })
 export class EventosComponent implements OnInit {
+
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
 
   public eventos : Evento[] = [];
   public eventosFiltrados : Evento[] = [];

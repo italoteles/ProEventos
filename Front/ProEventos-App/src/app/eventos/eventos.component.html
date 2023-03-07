@@ -24,6 +24,9 @@
           class="btn btn-secondary"
           (click)="alterarExibicaoImagem()"
         >
+
+        <fa-icon [icon]="!exibirImagem ? faEye : faEyeSlash"></fa-icon>
+
           {{ !exibirImagem ? "Exibir" : "Ocultar" }}
         </button>
       </th>
