@@ -14,6 +14,7 @@ export class EventosComponent implements OnInit {
   faEye = faEye;
   faEyeSlash = faEyeSlash;
 
+
   public eventos : Evento[] = [];
   public eventosFiltrados : Evento[] = [];
   public margemImagem : number = 0;

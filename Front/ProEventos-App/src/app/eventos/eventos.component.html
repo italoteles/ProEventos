@@ -53,15 +53,18 @@
       <td>{{ evento.id }}</td>
       <td>{{ evento.tema }}</td>
       <td>{{ evento.local }}</td>
-      <td>{{ evento.dataEvento }}</td>
+      <td>{{ evento.dataEvento | DateTimeFormatPipe}}</td>
       <td>{{ evento.qtdPessoas }}</td>
-      <td>{{ evento.lotes[0].nome }}</td>
+      <td>{{ evento.lotes[0].nome }} </td>
       <td>
         <button type="button" class="btn btn-warning btn-sm me-2">
-          Editar
+
+          <fa-icon icon="pen-to-square"></fa-icon>
+
         </button>
         <button type="button" class="btn btn-danger btn-sm">
-          Excluir
+          <fa-icon icon="trash"></fa-icon>
+
         </button>
       </td>
     </tr>
