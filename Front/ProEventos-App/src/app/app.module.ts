@@ -9,9 +9,13 @@ import {FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesom
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EventosComponent } from './eventos/eventos.component';
-import { PalestrantesComponent } from './palestrantes/palestrantes.component';
-import { NavComponent } from './nav/nav.component';
+import { EventosComponent } from './components/eventos/eventos.component';
+import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
+import { NavComponent } from './shared/nav/nav.component';
+import { TituloComponent } from './shared/titulo/titulo.component';
+import { ContatosComponent } from './components/contatos/contatos.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -36,7 +40,11 @@ import { faEye, faEyeSlash, faPenToSquare, faTrash } from '@fortawesome/free-sol
     EventosComponent,
     PalestrantesComponent,
     NavComponent,
-    DateTimeFormatPipe
+    DateTimeFormatPipe,
+    TituloComponent,
+    ContatosComponent,
+    PerfilComponent,
+    DashboardComponent
    ],
   imports: [
     BrowserModule,

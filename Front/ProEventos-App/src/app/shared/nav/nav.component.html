@@ -1,25 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">ProEventos</a>
+  <a class="navbar-brand" routerLink="dashboard">ProEventos</a>
   <button class="navbar-toggler" (click)="isCollapsed = !isCollapsed" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" [collapse]="isCollapsed" [isAnimated]="true" id="navbarNav">
     <ul class="navbar-nav me-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Eventos <span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLink="eventos" routerLinkActive="active">Eventos <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Palestrantes</a>
+        <a class="nav-link" routerLink="palestrantes" routerLinkActive="active">Palestrantes</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Contatos</a>
+        <a class="nav-link" routerLink="contatos" routerLinkActive="active">Contatos</a>
       </li>
       </ul>
     <ul class="navbar-nav me-3">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Ítalo</a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown01">
-          <li><a class="dropdown-item" href="#" routerLink="perfil">Perfil</a></li>
+          <li><a class="dropdown-item" routerLink="perfil" >Perfil</a></li>
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item" href="#">Sair</a></li>
     </ul>

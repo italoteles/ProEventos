@@ -1,7 +1,7 @@
 
 import { Component, OnInit,TemplateRef } from '@angular/core';
-import { Evento } from '../models/Evento';
-import { EventoService } from '../services/evento.service';
+import { Evento } from '../../models/Evento';
+import { EventoService } from '../../services/evento.service';
 
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
@@ -45,12 +45,12 @@ export class EventosComponent implements OnInit {
 
   public ngOnInit(): void {
     /** spinner starts on init */
-    this.getEventos();
     this.spinner.show();
+    this.getEventos();
 
     setTimeout(() => {
       /** spinner ends after 5 seconds */
-      this.spinner.hide();
+
     }, 5000);
   }
 
@@ -61,7 +61,12 @@ export class EventosComponent implements OnInit {
           this.eventos = eventos;
           this.eventosFiltrados = this.eventos;
         },
-        error: (error : any) => console.log(error)
+        error: (error : any) => {
+          this.spinner.hide();
+          this.toastr.error('Erro ao carregar os eventos!', 'Erro!');
+
+        },
+        complete: () => this.spinner.hide()
 
       });
   }
