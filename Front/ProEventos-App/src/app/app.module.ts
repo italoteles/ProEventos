@@ -32,7 +32,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
-import { faEye, faEyeSlash, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faEye, faEyeSlash, faPenToSquare, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [
@@ -80,6 +80,8 @@ export class AppModule {
     library.addIcons(faPenToSquare);
     library.addIcons(faEye);
     library.addIcons(faEyeSlash);
+    library.addIcons(faCalendarDays);
+    library.addIcons(faUser);
   }
 
 }
