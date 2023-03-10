@@ -32,7 +32,9 @@ import { NgxSpinnerModule } from "ngx-spinner";
 
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
-import { faCalendarDays, faEye, faEyeSlash, faPenToSquare, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faCirclePlus, faEye, faEyeSlash, faPenToSquare, faPlus, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
+import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { faCalendarDays, faEye, faEyeSlash, faPenToSquare, faTrash, faUser } fro
     TituloComponent,
     ContatosComponent,
     PerfilComponent,
-    DashboardComponent
+    DashboardComponent,
+    EventoListaComponent,
+    EventoDetalheComponent
    ],
   imports: [
     BrowserModule,
@@ -82,6 +86,7 @@ export class AppModule {
     library.addIcons(faEyeSlash);
     library.addIcons(faCalendarDays);
     library.addIcons(faUser);
+    library.addIcons(faCirclePlus);
   }
 
 }

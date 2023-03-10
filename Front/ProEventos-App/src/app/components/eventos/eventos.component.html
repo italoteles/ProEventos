@@ -1,88 +1,10 @@
-<app-titulo [titulo]="'Eventos'" [subtitulo]="'Gerencie seus eventos'" [iconClass]="'calendar-days'" [botaoListar]="true"></app-titulo>
-<div>
-  <div class="mb-3">
-    <div>
-      <label class="me-3">Filtro:</label>
-      <input
-        [(ngModel)]="filtroLista"
-        type="text"
-        class=""
-        id="buscar"
-        placeholder="buscar"
-      />
-    </div>
-  </div>
-</div>
+<app-titulo
+  [titulo]="'Eventos'"
+  [subtitulo]="'Gerencie seus eventos'"
+  [iconClass]="'calendar-days'"
+  [botaoListar]="true"
+></app-titulo>
 
-<table class="table table-striped">
-  <thead class="table-dark">
-    <tr>
-      <th>
-        <button
-          type="button"
-          class="btn btn-secondary"
-          (click)="alterarExibicaoImagem()"
-        >
-
-        <fa-icon icon="{{!exibirImagem ? 'eye' : 'eye-slash'}}"></fa-icon>
-
-          {{ !exibirImagem ? "Exibir" : "Ocultar" }}
-        </button>
-      </th>
-      <th>#</th>
-      <th>Tema</th>
-      <th>Local</th>
-      <th>Data</th>
-      <th>Qtd Pessoas</th>
-      <th>Lote</th>
-      <th>Opções</th>
-    </tr>
-  </thead>
-  <tbody *ngIf="eventos.length">
-    <tr *ngFor="let evento of eventosFiltrados">
-      <td>
-        <img
-          [collapse]="!exibirImagem"
-          [isAnimated]="true"
-          src="/assets/{{ evento.imagemURL }}"
-          [style.width.px]="larguraImagem"
-          [style.margin.px]="margemImagem"
-        />
-      </td>
-      <td>{{ evento.id }}</td>
-      <td>{{ evento.tema }}</td>
-      <td>{{ evento.local }}</td>
-      <td>{{ evento.dataEvento | DateTimeFormatPipe}}</td>
-      <td>{{ evento.qtdPessoas }}</td>
-      <td>{{ evento.lotes[0].nome }} </td>
-      <td>
-        <button type="button" class="btn btn-warning btn-sm me-2" tooltip="Editar">
-
-          <fa-icon icon="pen-to-square"></fa-icon>
-
-        </button>
-        <button type="button" class="btn btn-danger btn-sm" tooltip="Excluir" (click)="openModal(template)">
-          <fa-icon icon="trash"></fa-icon>
-
-        </button>
-      </td>
-    </tr>
-  </tbody>
-  <tfoot *ngIf="!eventos.length">
-    <tr>
-      <td colspan="8" class="text-center">Nenhum evento encontrado!</td>
-    </tr>
-  </tfoot>
-</table>
-
-<ng-template #template>
-  <div class="modal-body text-center">
-    <p>Tem certeza que deseja excluir este evento?</p>
-    <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
-    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
-  </div>
-</ng-template>
-
-
+<router-outlet></router-outlet>
 
 

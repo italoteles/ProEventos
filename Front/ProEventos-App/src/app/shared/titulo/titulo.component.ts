@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-titulo',
@@ -10,5 +11,11 @@ export class TituloComponent {
   @Input() subtitulo : string = "Desde 2023";
   @Input() iconClass : string = "user";
   @Input() botaoListar : boolean = false;
+
+  constructor(private router : Router){}
+
+  listar() : void{
+    this.router.navigate([`/${this.titulo.toLocaleLowerCase()}/lista`]);
+  }
 
 }
