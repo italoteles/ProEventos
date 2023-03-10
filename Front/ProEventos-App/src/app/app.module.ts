@@ -14,7 +14,7 @@ import { PalestrantesComponent } from './components/palestrantes/palestrantes.co
 import { NavComponent } from './shared/nav/nav.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
 import { ContatosComponent } from './components/contatos/contatos.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
+import { PerfilComponent } from './components/user/perfil/perfil.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
@@ -32,9 +32,12 @@ import { NgxSpinnerModule } from "ngx-spinner";
 
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
-import { faCalendarDays, faCirclePlus, faEye, faEyeSlash, faPenToSquare, faPlus, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faCirclePlus, faEye, faEyeSlash, faPenToSquare, faPlus, faTrash, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
 import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
+import { UserComponent } from './components/user/user.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegistrationComponent } from './components/user/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,10 @@ import { EventoDetalheComponent } from './components/eventos/evento-detalhe/even
     PerfilComponent,
     DashboardComponent,
     EventoListaComponent,
-    EventoDetalheComponent
+    EventoDetalheComponent,
+    UserComponent,
+    LoginComponent,
+    RegistrationComponent
    ],
   imports: [
     BrowserModule,
@@ -86,6 +92,7 @@ export class AppModule {
     library.addIcons(faEyeSlash);
     library.addIcons(faCalendarDays);
     library.addIcons(faUser);
+    library.addIcons(faUsers);
     library.addIcons(faCirclePlus);
   }
 
