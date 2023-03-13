@@ -11,7 +11,7 @@ export interface Evento {
    qtdPessoas : number;
    lote : string;
    imagemURL : string;
-   telefon : string;
+   telefone : string;
    email : string;
    lotes : Lote[];
    redesSociais : RedeSocial[];
