@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using ProEventos.Persistence.Contextos;
+
 using ProEventos.Domain;
 using ProEventos.Application.Contratos;
+using ProEventos.Application.Dtos;
 
 namespace ProEventos.API.Controllers;
 
@@ -18,17 +19,19 @@ public class EventosController : ControllerBase
     }
 
     [HttpGet]
-    public  async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll()
     {
         try
         {
             var eventos = await _eventoService.GetAllEventosAsync(true);
             if (eventos == null) return NotFound("Nenhum evento encontrado!");
+
+    
             return Ok(eventos);
         }
         catch (Exception ex)
         {
-            
+
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar eventos. Erro: {ex.Message}");
         }
 
@@ -44,7 +47,7 @@ public class EventosController : ControllerBase
         }
         catch (Exception ex)
         {
-            
+
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar o evento. Erro: {ex.Message}");
         }
 
@@ -62,14 +65,14 @@ public class EventosController : ControllerBase
         }
         catch (Exception ex)
         {
-            
+
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar o evento com este tema. Erro: {ex.Message}");
         }
 
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(Evento model)
+    public async Task<IActionResult> Post(EventoDto model)
     {
         try
         {
@@ -79,14 +82,14 @@ public class EventosController : ControllerBase
         }
         catch (Exception ex)
         {
-            
+
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar o evento com este tema. Erro: {ex.Message}");
         }
 
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(int id, Evento model)
+    public async Task<IActionResult> Put(int id, EventoDto model)
     {
         try
         {
@@ -96,7 +99,7 @@ public class EventosController : ControllerBase
         }
         catch (Exception ex)
         {
-            
+
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar inserir o evento. Erro: {ex.Message}");
         }
 
@@ -112,11 +115,11 @@ public class EventosController : ControllerBase
 
             else
                 return BadRequest("Evento não deletado");
-            
+
         }
         catch (Exception ex)
         {
-            
+
             return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar deletar o evento. Erro: {ex.Message}");
         }
 

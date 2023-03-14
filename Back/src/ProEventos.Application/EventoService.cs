@@ -1,4 +1,6 @@
+using AutoMapper;
 using ProEventos.Application.Contratos;
+using ProEventos.Application.Dtos;
 using ProEventos.Domain;
 using ProEventos.Persistence.Contratos;
 
@@ -6,21 +8,26 @@ namespace ProEventos.Application
 {
     public class EventoService : IEventoService
     {
-        private IEventoPersist _eventoPersist;
-        private IGeralPersist _geralPersist;
+        private readonly IEventoPersist _eventoPersist;
+        private readonly IGeralPersist _geralPersist;
+        private readonly IMapper _mapper;
 
-        public EventoService(IGeralPersist geralPersist, IEventoPersist eventoPersist)
+        public EventoService(IGeralPersist geralPersist, IEventoPersist eventoPersist, IMapper mapper)
         {
             _eventoPersist = eventoPersist;
             _geralPersist = geralPersist;
+            _mapper = mapper;
         }
-        public async Task<Evento> AddEvento(Evento model)
+        public async Task<EventoDto> AddEvento(EventoDto model)
         {
             try
             {
-                _geralPersist.Add<Evento>(model);
+                var evento = _mapper.Map<Evento>(model);
+
+                _geralPersist.Add<Evento>(evento);
                 if (await _geralPersist.SaveChangesAsync()){
-                    return await _eventoPersist.GetAEventoByIdAsync(model.Id, false);
+                    var eventoRetorno = await _eventoPersist.GetAEventoByIdAsync(evento.Id, false);
+                    return _mapper.Map<EventoDto>(eventoRetorno);
                 }
             
                 return null;
@@ -31,10 +38,12 @@ namespace ProEventos.Application
                 
             }
         }
-        public async Task<Evento> UpdateEvento(int eventoId, Evento model)
+        public async Task<EventoDto> UpdateEvento(int eventoId, EventoDto model)
         {
             try
             {
+                
+
                 var evento = await _eventoPersist.GetAEventoByIdAsync(eventoId, false);
                 if (evento ==null){
                     return null;
@@ -42,10 +51,14 @@ namespace ProEventos.Application
 
                 model.Id = eventoId;
 
-                _geralPersist.Update(model);
+                _mapper.Map(model, evento);
+
+                _geralPersist.Update<Evento>(evento);
 
                 if (await _geralPersist.SaveChangesAsync()){
-                    return await _eventoPersist.GetAEventoByIdAsync(model.Id, false);
+                    var eventoRetorno = await _eventoPersist.GetAEventoByIdAsync(evento.Id, false);
+                    
+                    return _mapper.Map<EventoDto>(eventoRetorno);
                 }
                 return null;
             }
@@ -78,13 +91,19 @@ namespace ProEventos.Application
             }
         }
 
-        public async Task<Evento[]> GetAllEventosAsync(bool includePalestrante = false)
+        public async Task<EventoDto[]> GetAllEventosAsync(bool includePalestrante = false)
         {
             try
             {
                 var eventos = await _eventoPersist.GetAllEventosAsync(includePalestrante);
                 if (eventos == null) return null;
-                return eventos;
+
+                var resultado = _mapper.Map<EventoDto[]>(eventos);
+            
+
+                return resultado;
+
+                
             }
             catch (Exception ex)
             {
@@ -92,13 +111,17 @@ namespace ProEventos.Application
                  throw new Exception(ex.Message);
             }
         }
-        public async Task<Evento[]> GetAllEventosByTemaAsync(string tema, bool includePalestrante = false)
+        public async Task<EventoDto[]> GetAllEventosByTemaAsync(string tema, bool includePalestrante = false)
         {
             try
             {
                 var eventos = await _eventoPersist.GetAllEventosByTemaAsync(tema, includePalestrante);
                 if (eventos == null) return null;
-                return eventos;
+
+                var resultado = _mapper.Map<EventoDto[]>(eventos);
+            
+
+                return resultado;
             }
             catch (Exception ex)
             {
@@ -106,13 +129,15 @@ namespace ProEventos.Application
                  throw new Exception(ex.Message);
             }
         }
-        public async Task<Evento> GetAEventoByIdAsync(int eventoId, bool includePalestrante = false)
+        public async Task<EventoDto> GetAEventoByIdAsync(int eventoId, bool includePalestrante = false)
         {
             try
             {
-                var eventos = await _eventoPersist.GetAEventoByIdAsync(eventoId, includePalestrante);
-                if (eventos == null) return null;
-                return eventos;
+                var evento = await _eventoPersist.GetAEventoByIdAsync(eventoId, includePalestrante);
+                if (evento == null) return null;
+
+                var resultado = _mapper.Map<EventoDto>(evento);
+                return resultado;
             }
             catch (Exception ex)
             {
