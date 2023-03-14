@@ -74,14 +74,14 @@
       </div>
       <div class="row">
         <div class=" col-12">
-          <button class="btn btn-lg btn-success btn-block px-5">
+          <button class="btn btn-lg btn-success btn-block px-5" [disabled]="!form.valid">
             Registar
           </button>
         </div>
       </div>
       <div class="row">
         <div class=" col-12">
-          <a class="btn btn-link btn-block" routerLink="/user/login">
+          <a class="btn btn-link btn-block" routerLink="/user/login" >
             Já sou Cadastrado
           </a>
         </div>
