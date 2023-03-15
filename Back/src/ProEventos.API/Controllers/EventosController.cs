@@ -24,7 +24,7 @@ public class EventosController : ControllerBase
         try
         {
             var eventos = await _eventoService.GetAllEventosAsync(true);
-            if (eventos == null) return NotFound("Nenhum evento encontrado!");
+            if (eventos == null) return NoContent();
 
     
             return Ok(eventos);
@@ -42,7 +42,7 @@ public class EventosController : ControllerBase
         try
         {
             var evento = await _eventoService.GetAEventoByIdAsync(id, true);
-            if (evento == null) return NotFound("Nenhum evento encontrado!");
+            if (evento == null) return NoContent();
             return Ok(evento);
         }
         catch (Exception ex)
@@ -60,7 +60,7 @@ public class EventosController : ControllerBase
         try
         {
             var evento = await _eventoService.GetAllEventosByTemaAsync(tema, true);
-            if (evento == null) return NotFound("Nenhum evento encontrado com este tema!");
+            if (evento == null) return NoContent();
             return Ok(evento);
         }
         catch (Exception ex)
@@ -94,7 +94,7 @@ public class EventosController : ControllerBase
         try
         {
             var evento = await _eventoService.UpdateEvento(id, model);
-            if (evento == null) return BadRequest("Erro ao tentar atualizar o evento!");
+            if (evento == null) return NoContent();
             return Ok(evento);
         }
         catch (Exception ex)
@@ -110,11 +110,11 @@ public class EventosController : ControllerBase
     {
         try
         {
-            if (await _eventoService.DeleteEvento(id))
-                return Ok("Deletado");
+            var evento = await _eventoService.GetAEventoByIdAsync(id, true);
+            if (evento == null) return NoContent();
 
-            else
-                return BadRequest("Evento não deletado");
+
+            return await _eventoService.DeleteEvento(id) ? Ok("Deletado") : throw new Exception("Ocorreu um erro ao deletar evento.");
 
         }
         catch (Exception ex)
