@@ -29,8 +29,8 @@ namespace ProEventos.Application.Dtos
         [Display(Name = "e-mail")]
         [EmailAddress(ErrorMessage = "O {0} não é válido.")]
         public string email { get; set; }
-        // public IEnumerable<Lote> Lotes { get; set; }
-        // public IEnumerable<RedeSocial> RedesSociais { get; set; }
-        // public IEnumerable<PalestranteEvento> PalestrantesEventos { get; set; }
+        public IEnumerable<LoteDto> Lotes { get; set; }
+        public IEnumerable<RedeSocialDto> RedesSociais { get; set; }
+        public IEnumerable<PalestranteDto> Palestrantes { get; set; }
     }
 }
