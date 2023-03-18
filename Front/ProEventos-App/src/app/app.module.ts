@@ -22,6 +22,8 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { ptBrLocale } from 'ngx-bootstrap/locale';
 
 
 
@@ -39,6 +41,9 @@ import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
+
+defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
   declarations: [

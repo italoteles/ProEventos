@@ -83,7 +83,7 @@ public class EventosController : ControllerBase
         catch (Exception ex)
         {
 
-            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar o evento com este tema. Erro: {ex.Message}");
+            return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar inserir o evento. Erro: {ex.Message}");
         }
 
     }
@@ -114,7 +114,9 @@ public class EventosController : ControllerBase
             if (evento == null) return NoContent();
 
 
-            return await _eventoService.DeleteEvento(id) ? Ok("Deletado") : throw new Exception("Ocorreu um erro ao deletar evento.");
+            return await _eventoService.DeleteEvento(id) 
+                ? Ok(new {message = "Deletado" }) 
+                : throw new Exception("Ocorreu um erro ao deletar evento.");
 
         }
         catch (Exception ex)
