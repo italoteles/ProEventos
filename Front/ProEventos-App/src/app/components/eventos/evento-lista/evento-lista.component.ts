@@ -99,20 +99,17 @@ export class EventoListaComponent {
         if (result.message === 'Deletado')
         {
           this.toastr.success('Evento deletado com sucesso.', 'Deletado!');
-          this.spinner.hide();
+
           this.carregarEventos();
         }
       },
       error : (error : any) =>{
         console.error(error);
         this.toastr.error(`Erro ao tentar deletar o evento ${this.eventoId}!`, 'Erro!');
-        this.spinner.hide();
-      },
-      complete : () =>{
-        this.spinner.hide();
+
       }
       }
-    );
+    ).add(() => this.spinner.hide());
 
   }
 

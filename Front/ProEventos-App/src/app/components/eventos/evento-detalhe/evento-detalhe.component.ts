@@ -16,6 +16,7 @@ export class EventoDetalheComponent implements OnInit {
 
   form: FormGroup;
   evento = {} as Evento;
+  estadoSalvar : string = 'post';
 
 
   constructor(private formBuilder : FormBuilder,
@@ -53,6 +54,8 @@ export class EventoDetalheComponent implements OnInit {
 
     if (eventoIdparam !== null){
       this.spinner.show();
+      this.estadoSalvar = 'put';
+
       //o + é para converter para number
       this.eventoService.getEventoById(+eventoIdparam).subscribe(
         {
@@ -62,14 +65,12 @@ export class EventoDetalheComponent implements OnInit {
           this.form.patchValue(this.evento);
         },
         error: (error:any) => {
-          this.spinner.hide();
           this.toastr.error('Erro ao carregar evento', 'Erro!');
           console.error(error);
         },
         complete : () => {
-          this.spinner.hide();
         }
-      });
+      }).add(()=>this.spinner.hide());
 
 
     }
@@ -98,25 +99,28 @@ export class EventoDetalheComponent implements OnInit {
   public salvarAlteracao() : void{
     this.spinner.show();
     if (this.form.valid){
-      this.evento = {...this.form.value};
+      this.evento = (this.estadoSalvar === 'post')
+                    ? {...this.form.value}
+                    : {id : this.evento.id, ...this.form.value}
       this.evento.lote = "Teste lote";
 
+      this.eventoService[this.estadoSalvar](this.evento).subscribe(
+          {
+            next : () => {
+              this.toastr.success('Evento salvo com sucesso!', 'Sucesso')
+            },
+            error  : (error : any) => {
+              console.error(error);
 
-      this.eventoService.postEvento(this.evento).subscribe(
-        {
-          next : () => {
-            this.toastr.success('Evento salvo com sucesso!', 'Sucesso')
-          },
-          error  : (error : any) => {
-            console.error(error);
-            this.spinner.hide();
-            this.toastr.error('Erro ao cadastrar evento!', 'Erro')
+              this.toastr.error('Erro ao cadastrar evento!', 'Erro')
 
-          },
-          complete : () => {this.spinner.hide();}
-        }
-      )
+            }
+
+          }
+        ).add(() => this.spinner.hide());
     }
 
   }
+
 }
+
