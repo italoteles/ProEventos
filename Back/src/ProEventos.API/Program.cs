@@ -26,8 +26,10 @@ builder.Services.AddDbContext<ProEventosContext>(
     context => context.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 builder.Services.AddScoped<IEventoService, EventoService>();
+builder.Services.AddScoped<ILoteService, LoteService>();
 builder.Services.AddScoped<IGeralPersist, GeralPersist>();
 builder.Services.AddScoped<IEventoPersist,EventoPersist>();
+builder.Services.AddScoped<ILotePersist,LotePersist>();
 
 var app = builder.Build();
 
