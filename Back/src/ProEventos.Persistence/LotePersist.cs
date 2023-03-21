@@ -10,6 +10,12 @@ namespace ProEventos.Persistence
     {
         private readonly ProEventosContext _context;
 
+        public LotePersist(ProEventosContext context)
+        {
+            _context = context;
+            // _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+        }
+
         public async Task<Lote> GetALoteByIdsAsync(int eventoId, int id)
         {
             IQueryable<Lote> query = _context.Lotes;
