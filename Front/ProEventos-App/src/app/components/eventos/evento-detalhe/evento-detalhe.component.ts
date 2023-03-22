@@ -100,8 +100,7 @@ export class EventoDetalheComponent implements OnInit {
   }
 
   public criarLote(lote : Lote) : FormGroup {
-    return
-    this.formBuilder.group({
+    return this.formBuilder.group({
       id : [lote.id],
       nome : [lote.nome, Validators.required],
       quantidade : [lote.quantidade, Validators.required],
