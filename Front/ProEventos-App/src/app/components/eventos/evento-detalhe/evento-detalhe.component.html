@@ -142,6 +142,7 @@
             <fieldset [formGroupName]="i" class="form-group">
               <legend class="d-flex justify-content-between capitalize">
                 <button
+                  (click)="removerLote(template, i)"
                   class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
                   tooltip="Excluir Lote"
                   [adaptivePosition]="false"
@@ -191,6 +192,8 @@
                     class="form-control"
                     formControlName="dataInicio"
                     placeholder="01/01/2019"
+                    bsDatepicker
+                    [bsConfig]="bsConfigLote"
                   />
                 </div>
                 <div class="form-group col-md-4">
@@ -200,6 +203,8 @@
                     class="form-control"
                     formControlName="dataFim"
                     placeholder="01/01/2019"
+                    bsDatepicker
+                    [bsConfig]="bsConfigLote"
                   />
                 </div>
               </div>
@@ -223,3 +228,15 @@
   </div>
 </div>
 <br>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja excluir o lote {{this.loteAtual.nome}}?</p>
+    <button type="button" class="btn btn-default" (click)="confirmeDeleteLote()">
+      Sim
+    </button>
+    <button type="button" class="btn btn-primary" (click)="declineDeleteLote()">
+      Não
+    </button>
+  </div>
+</ng-template>

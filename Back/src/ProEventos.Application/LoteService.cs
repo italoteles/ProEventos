@@ -54,7 +54,7 @@ namespace ProEventos.Application
                     else
                     {
                         var lote = lotes.FirstOrDefault(lote => lote.Id == model.Id);
-                        //model.Id = eventoId;
+                        model.EventoId = eventoId;
 
                         _mapper.Map(model, lote);
 

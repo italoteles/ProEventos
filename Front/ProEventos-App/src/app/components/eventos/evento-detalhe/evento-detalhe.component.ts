@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -13,6 +13,7 @@ import { Lote } from '@app/models/Lote';
 import { EventoService } from '@app/services/evento.service';
 import { LoteService } from '@app/services/lote.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
@@ -26,6 +27,9 @@ export class EventoDetalheComponent implements OnInit {
   form: FormGroup;
   evento = {} as Evento;
   estadoSalvar: string = 'post';
+  modalRef?: BsModalRef;
+
+  loteAtual = {id : 0, nome : '', indice : 0};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,6 +39,7 @@ export class EventoDetalheComponent implements OnInit {
     private loteService: LoteService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
+    private modalService: BsModalService,
     private router: Router
   ) {
     this.localeService.use('pt-br');
@@ -52,6 +57,15 @@ export class EventoDetalheComponent implements OnInit {
       isAnimated: true,
       adaptivePosition: true,
       dateInputFormat: 'DD/MM/YYYY hh:mm a',
+      containerClass: 'theme-default',
+      showWeekNumbers: false,
+    };
+  }
+  get bsConfigLote(): any {
+    return {
+      isAnimated: true,
+      adaptivePosition: true,
+      dateInputFormat: 'DD/MM/YYYY',
       containerClass: 'theme-default',
       showWeekNumbers: false,
     };
@@ -81,6 +95,10 @@ export class EventoDetalheComponent implements OnInit {
             //este 3 pontos com chaves é para copiar os dados do objeto para outra variável e não apenas vincular como referência.
             this.evento = { ...evento };
             this.form.patchValue(this.evento);
+            this.evento.lotes.forEach((lote : Lote) => {
+              this.lotes.push(this.criarLote(lote));
+            });
+
           },
           error: (error: any) => {
             this.toastr.error('Erro ao carregar evento', 'Erro!');
@@ -156,20 +174,62 @@ export class EventoDetalheComponent implements OnInit {
 
   public salvarLotes(): void {
     this.spinner.show();
+    console.log("-----------" +this.eventoId+" -----"+this.form.value.lotes);
     if (this.form.controls.lotes.status) {
       this.loteService
         .saveLote(this.eventoId, this.form.value.lotes)
         .subscribe({
           next: () => {
+            console.log("entrou no sucesso");
             this.toastr.success('Lotes salvos com sucesso!', 'Sucesso');
           },
           error: (error: any) => {
+            console.log("entrou no erroooo");
             this.toastr.error('Erro ao cadastrar lotes!', 'Erro');
             console.error(error);
-
           },
         })
         .add(() => this.spinner.hide());
     }
   }
+
+
+  public removerLote(template : TemplateRef<any>, indice : number) : void{
+
+    this.loteAtual.id = this.lotes.get(indice + '.id').value;
+    this.loteAtual.nome = this.lotes.get(indice + '.nome').value;
+    this.loteAtual.indice = indice;
+
+    this.modalRef = this.modalService.show(template, {class:'modal-sm'});
+
+
+  }
+
+  public confirmeDeleteLote() : void {
+    this.modalRef.hide();
+    this.spinner.show();
+
+    this.loteService.deleteLote(this.eventoId, this.loteAtual.id)
+                .subscribe(
+                  {
+                    next : () =>{
+                      this.toastr.success('Lote deletado com sucesso!', 'Sucesso');
+                      this.lotes.removeAt(this.loteAtual.indice);
+
+                    },
+                    error : (error : any) =>{
+                      this.toastr.error(`Erro ao deletar o lote ${this.loteAtual.id}!`, 'Erro');
+                    console.error(error);
+                    }
+                  }
+                ).add(()=>this.spinner.hide());
+  }
+
+  public declineDeleteLote() : void{
+    this.modalRef.hide();
+  }
+
+
+
+
 }
