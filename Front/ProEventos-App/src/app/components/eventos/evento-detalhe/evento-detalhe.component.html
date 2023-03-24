@@ -126,8 +126,12 @@
 </div>
 
 <div class="card rounded shadow-sm mt-4" *ngIf="modoEditar">
+  <!-- <p>Form value: {{form.controls.lotes.value |json}}</p>
+  <p>Form value: {{form.controls.lotes.status |json}}</p> -->
   <div class="p-3">
     <div class="d-flex border-bottom">
+
+
       <h2 class="me-auto">Lotes do Evento</h2>
     </div>
     <p>Clique em Lote para adicionar e preencher novos Lotes</p>
@@ -141,6 +145,7 @@
           >
             <fieldset [formGroupName]="i" class="form-group">
               <legend class="d-flex justify-content-between capitalize">
+                {{retornaTituloLote(lotes.get(i+'.nome').value)}}
                 <button
                   (click)="removerLote(template, i)"
                   class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
@@ -177,7 +182,9 @@
                 <div class="form-group col-md-4">
                   <label>Preço</label>
                   <input
-                  [ngClass]="cssValidator(lotes.get(i+'.preco'))"
+                    currencyMask
+                    [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align:'left' }"
+                    [ngClass]="cssValidator(lotes.get(i+'.preco'))"
                     type="text"
                     currencyMask
                     class="form-control"
@@ -223,7 +230,7 @@
       <button class="btn btn-outline-secondary me-auto border">
         Cancelar Alteração
       </button>
-      <button (click)="salvarLotes()" class="btn btn-success">Salvar Lotes</button>
+      <button [disabled]="!form.controls.lotes.valid" (click)="salvarLotes()" class="btn btn-success">Salvar Lotes</button>
     </div>
   </div>
 </div>

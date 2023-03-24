@@ -27,7 +27,7 @@ import { ptBrLocale } from 'ngx-bootstrap/locale';
 
 
 
-
+import { NgxCurrencyModule } from "ngx-currency";
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
 
@@ -72,6 +72,7 @@ defineLocale('pt-br', ptBrLocale);
     ReactiveFormsModule,
     CommonModule,
     FontAwesomeModule,
+    NgxCurrencyModule,
 
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),

@@ -83,7 +83,7 @@ export class EventoDetalheComponent implements OnInit {
   public carregarEvento(): void {
     this.eventoId = +this.activatedRouter.snapshot.paramMap.get('id');
 
-    if (this.eventoId !== null || this.eventoId == 0) {
+    if (this.eventoId !== null && this.eventoId !== 0) {
       this.spinner.show();
       this.estadoSalvar = 'put';
 
@@ -147,8 +147,8 @@ export class EventoDetalheComponent implements OnInit {
   }
 
   public salvarEvento(): void {
-    this.spinner.show();
     if (this.form.valid) {
+      this.spinner.show();
       this.evento =
         this.estadoSalvar === 'post'
           ? { ...this.form.value }
@@ -227,6 +227,10 @@ export class EventoDetalheComponent implements OnInit {
 
   public declineDeleteLote() : void{
     this.modalRef.hide();
+  }
+
+  public retornaTituloLote(nome : string) : string {
+    return nome === null || nome === '' ? 'Nome do Lote' : nome;
   }
 
 
