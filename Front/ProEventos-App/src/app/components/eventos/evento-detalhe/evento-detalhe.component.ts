@@ -29,6 +29,8 @@ export class EventoDetalheComponent implements OnInit {
   estadoSalvar: string = 'post';
   modalRef?: BsModalRef;
 
+  imagemURL = 'assets/foto.png';
+
   loteAtual = {id : 0, nome : '', indice : 0};
 
   constructor(

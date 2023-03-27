@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using ProEventos.Application;
 using ProEventos.Application.Contratos;
 using ProEventos.Persistence;
@@ -45,6 +46,13 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.UseCors(x  => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
+//configuração para ter os uploads de imagens
+app.UseStaticFiles(new StaticFileOptions() {
+  FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "Resourcers")),
+  RequestPath = new PathString("/Resourcers")
+
+});
 
 app.MapControllers();
 
