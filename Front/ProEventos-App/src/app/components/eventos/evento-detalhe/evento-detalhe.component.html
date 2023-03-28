@@ -246,7 +246,7 @@
 
       <div class="form-group m-0">
 
-        <input type="file" #file class="form-control is-invalid" placeholder="" style="display: none">
+        <input type="file" #file (change)="onFileChange($event)" class="form-control is-invalid" placeholder="" style="display: none">
 
       </div>
 

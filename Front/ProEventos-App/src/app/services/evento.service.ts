@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, take } from 'rxjs';
 import { Evento } from '../models/Evento';
 
+type NewType = Evento;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -33,6 +35,14 @@ public put(evento : Evento) : Observable<Evento>{
 
 public deleteEvento(id : number) : Observable<any>{
   return this.http.delete(`${this.baseURL}/${id}`).pipe(take(1));
+}
+
+public postUpload(eventoId : number, file : File) : Observable<Evento>{
+  const fileToUpload = file[0] as File;
+  const formData = new FormData();
+  formData.append('file', fileToUpload);
+  console.log("Nome do arquivo ============="+fileToUpload.name);
+  return this.http.post<Evento>(`${this.baseURL}/upload-image/${eventoId}`,formData ).pipe(take(1));
 }
 
 

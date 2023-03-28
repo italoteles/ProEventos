@@ -166,7 +166,7 @@ public class EventosController : ControllerBase
             await imageFile.CopyToAsync(fileStream);
         }
 
-       return "";
+       return imageName;
     }
     [NonAction]
     public void DeleteImage(string imageName){

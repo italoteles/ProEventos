@@ -33,6 +33,8 @@ export class EventoDetalheComponent implements OnInit {
 
   loteAtual = {id : 0, nome : '', indice : 0};
 
+  file : File;
+
   constructor(
     private formBuilder: FormBuilder,
     private localeService: BsLocaleService,
@@ -104,7 +106,7 @@ export class EventoDetalheComponent implements OnInit {
           },
           error: (error: any) => {
             this.toastr.error('Erro ao carregar evento', 'Erro!');
-            console.error(error);
+            console.log(error);
           },
           complete: () => {},
         })
@@ -165,7 +167,7 @@ export class EventoDetalheComponent implements OnInit {
             this.router.navigate([`eventos/detalhe/${eventoRetorno.id}`]);
           },
           error: (error: any) => {
-            console.error(error);
+            console.log(error);
 
             this.toastr.error('Erro ao cadastrar evento!', 'Erro');
           },
@@ -176,19 +178,19 @@ export class EventoDetalheComponent implements OnInit {
 
   public salvarLotes(): void {
     this.spinner.show();
-    console.log("-----------" +this.eventoId+" -----"+this.form.value.lotes);
+
     if (this.form.controls.lotes.status) {
       this.loteService
         .saveLote(this.eventoId, this.form.value.lotes)
         .subscribe({
           next: () => {
-            console.log("entrou no sucesso");
+
             this.toastr.success('Lotes salvos com sucesso!', 'Sucesso');
           },
           error: (error: any) => {
-            console.log("entrou no erroooo");
+
             this.toastr.error('Erro ao cadastrar lotes!', 'Erro');
-            console.error(error);
+            console.log(error);
           },
         })
         .add(() => this.spinner.hide());
@@ -221,7 +223,7 @@ export class EventoDetalheComponent implements OnInit {
                     },
                     error : (error : any) =>{
                       this.toastr.error(`Erro ao deletar o lote ${this.loteAtual.id}!`, 'Erro');
-                    console.error(error);
+                      console.log(error);
                     }
                   }
                 ).add(()=>this.spinner.hide());
@@ -233,6 +235,33 @@ export class EventoDetalheComponent implements OnInit {
 
   public retornaTituloLote(nome : string) : string {
     return nome === null || nome === '' ? 'Nome do Lote' : nome;
+  }
+
+  public onFileChange(ev : any) : void{
+    const reader = new FileReader();
+
+    reader.onload = (event : any) => this.imagemURL = event.target.result;
+
+    this.file = ev.target.files;
+    reader.readAsDataURL(this.file[0]);
+
+    this.uploadImagem();
+  }
+
+  public uploadImagem() : void {
+    this.spinner.show();
+    this.eventoService.postUpload(this.eventoId, this.file).subscribe(
+      {
+        next: () => {
+          this.carregarEvento();
+          this.toastr.success('Imagem atualizada com sucesso!', 'Sucesso');
+        },
+        error : (error : any) =>{
+          this.toastr.error('Erro ao fazer upload de imagem!', 'Erro');
+          console.log(error);
+        }
+      }
+    ).add(()=> this.spinner.hide());
   }
 
 
