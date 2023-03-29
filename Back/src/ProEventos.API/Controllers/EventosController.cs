@@ -140,9 +140,14 @@ public class EventosController : ControllerBase
             if (evento == null) return NoContent();
 
 
-            return await _eventoService.DeleteEvento(id) 
-                ? Ok(new {message = "Deletado" }) 
-                : throw new Exception("Ocorreu um erro ao deletar evento.");
+            if (await _eventoService.DeleteEvento(id)){
+                DeleteImage(evento.ImagemURL);
+                return Ok(new {message = "Deletado" }); 
+
+            } else{
+
+                 throw new Exception("Ocorreu um erro ao deletar evento.");
+            }
 
         }
         catch (Exception ex)
@@ -160,7 +165,7 @@ public class EventosController : ControllerBase
 
         imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
 
-        var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resourcers/images, imageName");
+        var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resourcers/images", imageName);
 
         using (var fileStream = new FileStream(imagePath, FileMode.Create)){
             await imageFile.CopyToAsync(fileStream);
@@ -170,7 +175,7 @@ public class EventosController : ControllerBase
     }
     [NonAction]
     public void DeleteImage(string imageName){
-        var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resourcers/images, imageName");
+        var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resourcers/images", imageName);
         if (System.IO.File.Exists(imagePath))
             System.IO.File.Delete(imagePath);
     }

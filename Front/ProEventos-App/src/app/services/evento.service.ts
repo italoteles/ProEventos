@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '@environments/environment.development';
 import { Observable, take } from 'rxjs';
 import { Evento } from '../models/Evento';
 
@@ -10,7 +11,7 @@ type NewType = Evento;
 })
 export class EventoService {
 
-  baseURL = "https://localhost:7157/api/eventos";
+  baseURL = environment.apiURL + "api/eventos";
 
 constructor(private http : HttpClient) { }
 

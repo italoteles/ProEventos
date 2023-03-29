@@ -16,6 +16,7 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '@environments/environment.development';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -29,7 +30,7 @@ export class EventoDetalheComponent implements OnInit {
   estadoSalvar: string = 'post';
   modalRef?: BsModalRef;
 
-  imagemURL = 'assets/foto.png';
+  imagemURL = 'assets/semImagem.png';
 
   loteAtual = {id : 0, nome : '', indice : 0};
 
@@ -99,6 +100,10 @@ export class EventoDetalheComponent implements OnInit {
             //este 3 pontos com chaves é para copiar os dados do objeto para outra variável e não apenas vincular como referência.
             this.evento = { ...evento };
             this.form.patchValue(this.evento);
+            if (this.evento.imagemURL != ''){
+              this.imagemURL = environment.apiURL + 'Resourcers/Images/' + this.evento.imagemURL;
+            }
+
             this.evento.lotes.forEach((lote : Lote) => {
               this.lotes.push(this.criarLote(lote));
             });
@@ -120,7 +125,7 @@ export class EventoDetalheComponent implements OnInit {
       local: ['', Validators.required],
       dataEvento: ['', Validators.required],
       qtdPessoas: ['', [Validators.required, Validators.min(5)]],
-      imagemURL: ['', Validators.required],
+      imagemURL: [''],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       lotes: this.formBuilder.array([]),

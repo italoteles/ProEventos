@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Evento } from '@app/models/Evento';
 import { EventoService } from '@app/services/evento.service';
+import { environment } from '@environments/environment.development';
 
 @Component({
   selector: 'app-evento-lista',
@@ -69,6 +70,10 @@ export class EventoListaComponent {
         complete: () => this.spinner.hide()
 
       });
+  }
+
+  public mostraImagem(imagemURL : string) : string {
+    return (imagemURL != '') ? `${environment.apiURL}resourcers/images/${imagemURL}` : 'assets/semImagem.png';
   }
 
   public alterarExibicaoImagem() : void{

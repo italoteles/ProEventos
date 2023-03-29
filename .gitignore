@@ -456,3 +456,4 @@ $RECYCLE.BIN/
 #excluindo arquivos temporarios do DB
 *.db-shm
 *.db-wal
+ProEventos.db
