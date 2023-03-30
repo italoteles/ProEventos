@@ -39,7 +39,7 @@ namespace ProEventos.Persistence
                 .ThenInclude(pe => pe.Evento);
             }
 
-            query = query.AsNoTracking().OrderBy(p => p.Id).Where(p => p.Nome.ToLower().Contains(nome.ToLower()));
+            query = query.AsNoTracking().OrderBy(p => p.Id).Where(p => p.MiniCurriculo.ToLower().Contains(nome.ToLower()));
 
             return await query.ToArrayAsync();
         }
