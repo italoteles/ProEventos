@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment.development';
 import { Observable, take } from 'rxjs';
@@ -12,11 +12,12 @@ type NewType = Evento;
 export class EventoService {
 
   baseURL = environment.apiURL + "api/eventos";
+  tokenHeader = new HttpHeaders({'Authorization' : 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJpdGFsbyIsIm5iZiI6MTY4MTIxMzYzNSwiZXhwIjoxNjgxMzAwMDM1LCJpYXQiOjE2ODEyMTM2MzV9.2EW7rqsyFqRV-0W0S2BhaHVFi9CpfTXUCW5dvlkMJW6RxaDfjOh6Bi6ErGjU1Kn_PXDebSptahKPyhnwBULOVg'});
 
 constructor(private http : HttpClient) { }
 
 public getEventos() : Observable<Evento[]>{
-  return this.http.get<Evento[]>(this.baseURL).pipe(take(1));
+  return this.http.get<Evento[]>(this.baseURL,{headers: this.tokenHeader}).pipe(take(1));
 }
 public getEventosByTema(tema : string) : Observable<Evento[]>{
   return this.http.get<Evento[]>(`${this.baseURL}/${tema}/tema`).pipe(take(1));
