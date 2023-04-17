@@ -12,7 +12,7 @@ type NewType = Evento;
 export class EventoService {
 
   baseURL = environment.apiURL + "api/eventos";
-  tokenHeader = new HttpHeaders({'Authorization' : 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJpdGFsbyIsIm5iZiI6MTY4MTIxMzYzNSwiZXhwIjoxNjgxMzAwMDM1LCJpYXQiOjE2ODEyMTM2MzV9.2EW7rqsyFqRV-0W0S2BhaHVFi9CpfTXUCW5dvlkMJW6RxaDfjOh6Bi6ErGjU1Kn_PXDebSptahKPyhnwBULOVg'});
+  tokenHeader = new HttpHeaders({'Authorization' : `Bearer ${JSON.parse(localStorage.getItem('user')).token}`});
 
 constructor(private http : HttpClient) { }
 
