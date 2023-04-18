@@ -26,6 +26,7 @@ export class LoginComponent {
     {
       next : () => {
         this.router.navigateByUrl('/dashboard');
+
       },
       error : (error: any) => {
         if (error.status == 401)
