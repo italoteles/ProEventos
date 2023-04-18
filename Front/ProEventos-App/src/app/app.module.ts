@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 
@@ -41,6 +41,7 @@ import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 
 defineLocale('pt-br', ptBrLocale);
@@ -89,7 +90,9 @@ defineLocale('pt-br', ptBrLocale);
 
 
   ],
-  providers: [],
+  providers: [
+    {provide : HTTP_INTERCEPTORS, useClass : JwtInterceptor, multi : true}
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
