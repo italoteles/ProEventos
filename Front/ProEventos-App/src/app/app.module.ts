@@ -34,7 +34,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
-import { faCalendarDays, faCirclePlus, faEye, faEyeSlash, faPenToSquare, faPlus, faTrash, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faAddressCard, faCalendarDays, faChartBar, faChartColumn, faCirclePlus, faEye, faEyeSlash, faHouse, faPenToSquare, faPlus, faTrash, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
 import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
 import { UserComponent } from './components/user/user.component';
@@ -108,6 +108,9 @@ export class AppModule {
     library.addIcons(faUser);
     library.addIcons(faUsers);
     library.addIcons(faCirclePlus);
+    library.addIcons(faHouse);
+    library.addIcons(faAddressCard);
+    library.addIcons(faChartBar);
   }
 
 }

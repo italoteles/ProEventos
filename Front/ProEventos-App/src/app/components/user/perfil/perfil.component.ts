@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ValidatorField } from '@app/helpers/ValidatorField';
+import { UserUpdate } from '@app/models/identity/UserUpdate';
+import { AccountService } from '@app/services/account.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-perfil',
@@ -10,47 +15,96 @@ import { ValidatorField } from '@app/helpers/ValidatorField';
 export class PerfilComponent implements OnInit {
 
   form: FormGroup;
+  userUpdate = {} as UserUpdate;
 
   get f() : any{
     return this.form.controls;
   }
 
-  constructor(private formBuilder : FormBuilder) { }
+  constructor(private formBuilder : FormBuilder,
+    public accountService: AccountService,
+    private router: Router,
+    private toaster: ToastrService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.validation();
+    this.carregarUsuario();
   }
 
   public validation(): void {
 
     const formOptions : AbstractControlOptions = {
-      validators : ValidatorField.MustMatch('senha', 'confirmarSenha')
+      validators : ValidatorField.MustMatch('password', 'confirmarPassword')
     };
 
-    this.form = this.formBuilder.group({
 
-      titulo: ["", Validators.required],
+    this.form = this.formBuilder.group({
+      userName : [''],
+      titulo: ["NaoInformado", Validators.required],
       primeiroNome: ["", Validators.required],
       ultimoNome: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
-      telefone: ["", Validators.required],
-      funcao: ["", Validators.required],
+      phoneNumber: ["", Validators.required],
+      funcao: ["NaoInformado", Validators.required],
       descricao: ["", Validators.required],
-      senha: ["", Validators.required],
-      confirmarSenha: ["", Validators.required],
+      password: ["", [Validators.minLength(4), Validators.required]],
+      confirmarPassword: ["", Validators.required],
 
     },formOptions);
   }
+
+
+  private carregarUsuario(): void {
+    this.spinner.show();
+    this.accountService
+      .getUser()
+      .subscribe({
+
+
+       next : (userRetorno: UserUpdate) => {
+          console.log(userRetorno);
+          this.userUpdate = userRetorno;
+          this.form.patchValue(this.userUpdate);
+          this.toaster.success('Usuário Carregado', 'Sucesso');
+        },
+        error : (error) => {
+          console.error(error);
+          this.toaster.error('Usuário não Carregado', 'Erro');
+          this.router.navigate(['/dashboard']);
+        }
+      }
+      )
+
+      .add(() => this.spinner.hide());
+  }
+
+
+
   public resetForm(evento : any){
     evento.preventDefault();
     this.form.reset();
   }
 
-  public onSubmit() : void{
+  onSubmit(): void {
+    this.atualizarUsuario();
+  }
 
-    //vai parar aqui se form estiver inválido
-    if (this.form.invalid){
-      return;
-    }
+  public atualizarUsuario() {
+    this.userUpdate = { ...this.form.value };
+    this.spinner.show();
+
+    this.accountService
+      .updateUser(this.userUpdate)
+      .subscribe(
+        {
+        next : () => this.toaster.success('Usuário atualizado!', 'Sucesso'),
+        error : (error) => {
+          this.toaster.error(error.error);
+          console.error(error);
+        }
+      }
+      )
+      .add(() => this.spinner.hide());
   }
 }

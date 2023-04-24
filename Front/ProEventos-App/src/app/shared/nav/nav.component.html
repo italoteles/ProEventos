@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" *ngIf="showMenu()">
-  <a class="navbar-brand" routerLink="dashboard">
+  <a class="navbar-brand" routerLink="home">
     <fa-icon icon="users" class=""></fa-icon>
   </a>
   <button class="navbar-toggler" (click)="isCollapsed = !isCollapsed" type="button" data-toggle="collapse"
@@ -10,8 +10,10 @@
     <ul class="navbar-nav me-auto">
       <ng-container *ngIf="(accountService.currentUser$ | async) !== null">
         <li class="nav-item active">
-          <a class="nav-link" routerLink="eventos/lista" routerLinkActive="active">Eventos <span
-              class="sr-only">(current)</span></a>
+          <a class="nav-link" routerLink="dashboard" routerLinkActive="active">Dashboard </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="eventos/lista" routerLinkActive="active">Eventos </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="palestrantes" routerLinkActive="active">Palestrantes</a>
