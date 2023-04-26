@@ -43,6 +43,7 @@ import { RegistrationComponent } from './components/user/registration/registrati
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { HomeComponent } from './components/home/home.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 defineLocale('pt-br', ptBrLocale);
@@ -88,7 +89,8 @@ defineLocale('pt-br', ptBrLocale);
       progressBar:true
     }),
     NgxSpinnerModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot()
 
 
   ],
