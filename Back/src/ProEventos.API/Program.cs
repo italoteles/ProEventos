@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ProEventos.Api.Helpers;
 using ProEventos.Application;
 using ProEventos.Application.Contratos;
 using ProEventos.Domain.Identity;
@@ -109,11 +110,16 @@ builder.Services.AddScoped<IEventoService, EventoService>();
 builder.Services.AddScoped<ILoteService, LoteService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IPalestranteService, PalestranteService>();
+builder.Services.AddScoped<IRedeSocialService,RedeSocialService>();
+builder.Services.AddScoped<IUtil,Util>();
 
 builder.Services.AddScoped<IGeralPersist, GeralPersist>();
 builder.Services.AddScoped<IEventoPersist, EventoPersist>();
 builder.Services.AddScoped<ILotePersist, LotePersist>();
 builder.Services.AddScoped<IUserPersist, UserPersist>();
+builder.Services.AddScoped<IPalestrantePersist, PalestrantePersist>();
+builder.Services.AddScoped<IRedeSocialPersist, RedeSocialPersist>();
 
 var app = builder.Build();
 

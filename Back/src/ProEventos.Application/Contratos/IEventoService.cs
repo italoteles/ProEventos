@@ -11,6 +11,6 @@ namespace ProEventos.Application.Contratos
 
         Task<PageList<EventoDto>> GetAllEventosAsync(int userId,PageParams pageParams, bool includePalestrante = false);
         
-        Task<EventoDto> GetAEventoByIdAsync(int userId,int eventoId, bool includePalestrante = false);
+        Task<EventoDto> GetEventoByIdAsync(int userId,int eventoId, bool includePalestrante = false);
     }
 }
