@@ -34,7 +34,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
-import { faAddressCard, faCalendarDays, faChartBar, faChartColumn, faCirclePlus, faEye, faEyeSlash, faHouse, faPenToSquare, faPlus, faTrash, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faAddressCard, faCalendarDays, faChartBar, faChartColumn, faCirclePlus, faEye, faEyeSlash, faHouse, faPenToSquare, faPlus, faShareSquare, faTrash, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
 import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
 import { UserComponent } from './components/user/user.component';
@@ -44,6 +44,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { HomeComponent } from './components/home/home.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { PerfilDetalheComponent } from './components/user/perfil/perfil-detalhe/perfil-detalhe.component';
 
 
 defineLocale('pt-br', ptBrLocale);
@@ -58,6 +60,7 @@ defineLocale('pt-br', ptBrLocale);
     TituloComponent,
     ContatosComponent,
     PerfilComponent,
+    PerfilDetalheComponent,
     DashboardComponent,
     EventoListaComponent,
     EventoDetalheComponent,
@@ -90,7 +93,8 @@ defineLocale('pt-br', ptBrLocale);
     }),
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    TabsModule.forRoot()
 
 
   ],
@@ -113,6 +117,7 @@ export class AppModule {
     library.addIcons(faHouse);
     library.addIcons(faAddressCard);
     library.addIcons(faChartBar);
+    library.addIcons(faShareSquare);
   }
 
 }
