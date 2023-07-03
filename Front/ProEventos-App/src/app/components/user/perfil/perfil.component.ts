@@ -14,13 +14,20 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PerfilComponent implements OnInit {
 
-  userUpdate = {} as UserUpdate;
+  public usuario = {} as UserUpdate;
 
+  public get ehPalestrante(): boolean{
+    return this.usuario.funcao === 'Palestrante';
+  }
 
   constructor() { }
 
   ngOnInit() {
 
+  }
+
+  public setFormValue(usuario : UserUpdate): void{
+    this.usuario = usuario;
   }
 
   get f() : any{

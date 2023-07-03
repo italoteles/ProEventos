@@ -76,14 +76,26 @@
 <div class="row">
   <div class="col-sm">
     <label for="senhaPerfil">Senha</label>
-    <input type="password" class="form-control" id="senhaPerfil" name="senhaPerfil" formControlName="password" [ngClass]="{'is-invalid' : f.password.errors && f.password.touched}"/>
+    <input
+      type="password"
+      class="form-control"
+      id="senhaPerfil"
+      name="senhaPerfil"
+      formControlName="password"
+      [ngClass]="{'is-invalid' : f.password.errors && f.password.touched}"/>
     <div class="invalid-feedback">
       Senha é obrigatória
     </div>
   </div>
   <div class="col-sm">
     <label for="confirmarSenhaPerfil">Confirmar Senha</label>
-    <input type="password" class="form-control" id="confirmarSenhaPerfil" name="confirmarSenhaPerfil" formControlName="confirmarPassword" [ngClass]="{'is-invalid' : f.confirmarPassword.errors && f.confirmarPassword.touched}"/>
+    <input
+      type="password"
+      class="form-control"
+      id="confirmarSenhaPerfil"
+      name="confirmarSenhaPerfil"
+      formControlName="confirmarPassword"
+      [ngClass]="{'is-invalid' : f.confirmarPassword.errors && f.confirmarPassword.touched}"/>
     <div *ngIf="f.confirmarPassword.errors?.required" class="invalid-feedback">
       Confirmar senha é obrigatório
     </div>
@@ -100,6 +112,8 @@
     <button class="btn btn-success" [disabled]="!form.valid" type="submit">
       Salvar Alteração
     </button>
+    <!-- <p>Form value: {{form.value |json}}</p>
+      <p>Form value: {{form.status |json}}</p> -->
   </div>
 </div>
 </form>

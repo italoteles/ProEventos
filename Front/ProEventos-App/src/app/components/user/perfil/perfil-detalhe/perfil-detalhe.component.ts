@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ValidatorField } from '@app/helpers/ValidatorField';
@@ -14,6 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PerfilDetalheComponent implements OnInit {
 
+  @Output() changeFormValue = new EventEmitter();
+
   form: FormGroup;
   userUpdate = {} as UserUpdate;
 
@@ -27,6 +29,12 @@ export class PerfilDetalheComponent implements OnInit {
   ngOnInit() {
     this.validation();
     this.carregarUsuario();
+    this.verificaForm();
+  }
+
+  private verificaForm() : void{
+    this.form.valueChanges
+      .subscribe( () => this.changeFormValue.emit({...this.form.value}))
   }
 
   get f() : any{
@@ -42,6 +50,7 @@ export class PerfilDetalheComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       userName : [''],
+      imagemURL: [''],
       titulo: ["NaoInformado", Validators.required],
       primeiroNome: ["", Validators.required],
       ultimoNome: ["", Validators.required],
@@ -49,8 +58,8 @@ export class PerfilDetalheComponent implements OnInit {
       phoneNumber: ["", Validators.required],
       funcao: ["NaoInformado", Validators.required],
       descricao: ["", Validators.required],
-      password: ["", [Validators.minLength(4), Validators.required]],
-      confirmarPassword: ["", Validators.required],
+      password: ["", [Validators.minLength(4), Validators.nullValidator]],
+      confirmarPassword: ["", Validators.nullValidator]
 
     },formOptions);
   }
@@ -64,6 +73,7 @@ export class PerfilDetalheComponent implements OnInit {
        next : (userRetorno: UserUpdate) => {
           console.log(userRetorno);
           this.userUpdate = userRetorno;
+          this.userUpdate.password = "";
           this.form.patchValue(this.userUpdate);
           this.toaster.success('Usuário Carregado', 'Sucesso');
         },
