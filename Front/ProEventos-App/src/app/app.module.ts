@@ -47,6 +47,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { PerfilDetalheComponent } from './components/user/perfil/perfil-detalhe/perfil-detalhe.component';
 import { PalestranteListaComponent } from './components/palestrantes/palestrante-lista/palestrante-lista.component';
+import { PalestranteDetalheComponent } from './components/palestrantes/palestrante-detalhe/palestrante-detalhe.component';
 
 
 defineLocale('pt-br', ptBrLocale);
@@ -57,6 +58,7 @@ defineLocale('pt-br', ptBrLocale);
     EventosComponent,
     PalestrantesComponent,
     PalestranteListaComponent,
+    PalestranteDetalheComponent,
     NavComponent,
     DateTimeFormatPipe,
     TituloComponent,

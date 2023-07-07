@@ -70,9 +70,9 @@ export class PalestranteListaComponent implements OnInit {
 
   public getImagemURL(imagemName: string): string {
     if (imagemName)
-      return environment.apiURL + `resources/perfil/${imagemName}`;
+      return environment.apiURL + `resourcers/perfil/${imagemName}`;
     else
-      return './assets/img/perfil.png';
+      return './assets/semImagem.png';
   }
 
   public carregarPalestrantes(): void {
